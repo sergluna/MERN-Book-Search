@@ -19,6 +19,47 @@ const resolvers = {
             const user = await User.create(args);
             const token = signToken(user);
             return { token, user };
+        },
+
+        login: async (parent, { email, password }) => {
+            const user = await User.findOne({ email });
+
+            if (!user) {
+                throw new AuthenticationError("No user found with this email.");
+            }
+
+            const correctPw = await user.IsCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError("Incorrect password");
+            }
+
+            const token = signToken(user);
+
+            return { token, user };
+        },
+
+        saveBook: async (parent, { book }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { savedBooks: book } },
+                    { new: true }
+                )
+                return updatedUser;
+            }
+            throw new AuthenticationError("You need to be logged in!")
+        },
+
+        deleteBook: async (parent, { book }, context) => {
+            if (context.user) {
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: { bookId: bookId } } },
+                    { new: true }
+                )
+                return updatedUser;
+            }
         }
     },
 };
