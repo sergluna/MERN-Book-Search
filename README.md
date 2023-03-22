@@ -11,7 +11,7 @@ This application uses the Google Books API to create a GraphQL API with an apoll
 ![badmath](https://img.shields.io/badge/Registry-npm-ff69b4)
 ![badmath](https://img.shields.io/badge/Enviorment-Node.js-success)
 ![badmath](https://img.shields.io/badge/Framework-React-0CAADC)
-![badmath](https://img.shields.io/badge/Tech-GrapgQL-blueviolet)
+![badmath](https://img.shields.io/badge/Tech-GraphQL-blueviolet)
 
 ## License
 ![badmath](https://img.shields.io/badge/License-MIT-red)
